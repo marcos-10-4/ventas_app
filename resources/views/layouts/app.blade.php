@@ -12,8 +12,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -23,11 +24,11 @@
 
         .navbar {
             background-color: #007bff;
-            color: white;
+            color: rgb(223, 16, 16);
         }
 
         .navbar a {
-            color: white !important;
+            color: rgb(0, 26, 255) !important;
         }
 
         .navbar a:hover {
@@ -48,11 +49,12 @@
         }
 
         .dropdown-menu .dropdown-item {
-            color: white;
+            color: #00ff62;
         }
 
         .dropdown-menu .dropdown-item:hover {
             background-color: #0056b3;
+            color: #ffd700;
         }
 
         .container {
@@ -65,20 +67,29 @@
             padding-bottom: 1.5rem;
         }
 
-        /* Additional styling for the content section */
         main {
             padding: 20px;
-            background-color: #ffffff;
+            background-color: white;
             border-radius: 8px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: rgb(206, 21, 21);
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover,
+        .navbar-dark .navbar-nav .nav-link:focus {
+            color: #ffd700;
+        }
     </style>
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -91,10 +102,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a href="{{route('ventas.index')}}" class="nav-link">Ventas</a>
+                            <a href="{{ route('ventas.index') }}" class="nav-link">Ventas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('productos.index')}}" class="nav-link">Productos</a>
+                            <a href="{{ route('productos.index') }}" class="nav-link">Productos</a>
                         </li>
                     </ul>
 
@@ -115,21 +126,22 @@
                             @endif
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{ Auth::user()->name }}
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                </ul>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
                         @endguest
                     </ul>
@@ -141,5 +153,8 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
